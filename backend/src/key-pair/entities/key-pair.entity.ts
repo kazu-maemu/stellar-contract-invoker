@@ -6,8 +6,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('contract')
-export class Contract {
+@Entity('key_pair')
+export class KeyPair {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -15,7 +15,10 @@ export class Contract {
   name: string;
 
   @Column({ type: 'varchar', length: 255 })
-  contract_id: string;
+  pub_key: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  sec_key: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;

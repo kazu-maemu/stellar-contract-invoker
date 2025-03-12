@@ -5,6 +5,7 @@ import typeorm from '../db/data-source';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ContractModule } from './contract/contract.module';
+import { KeyPairModule } from './key-pair/key-pair.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ContractModule } from './contract/contract.module';
         configService.get('typeorm')!,
     }),
     ContractModule,
+    KeyPairModule,
   ],
   controllers: [AppController],
   providers: [AppService],
