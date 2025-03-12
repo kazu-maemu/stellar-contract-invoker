@@ -1,35 +1,18 @@
-export interface Network {
+export interface Contract {
   id: string;
   name: string;
-  url: string;
+  contract_id: string;
 }
 
-export interface WalletConfig {
+export interface KeyPair {
   id: string;
   name: string;
-  secretKey: string;
+  pub_key: string;
+  sec_key: string;
 }
 
-export interface ContractConfig {
+export interface Func {
   id: string;
   name: string;
-  contractId: string;
-}
-
-export interface ContractFunction {
-  id: string;
-  name: string;
-  parameters: Parameter[];
-}
-
-export interface Parameter {
-  key: string;
-  value: string;
-}
-
-export interface SavedFunction {
-  id: string;
-  name: string;
-  contractId: string;
-  parameters: Parameter[];
+  params: string;
 }
