@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Box,
   Flex,
@@ -9,35 +8,27 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
+import { AppContext } from '../App';
+import { Contract } from '../types';
+import axios from '../utils/axios';
 
-const mockNetworks = [
+const networks = [
   { id: '1', name: 'Testnet', url: 'https://horizon-testnet.stellar.org' },
   { id: '2', name: 'Public', url: 'https://horizon.stellar.org' },
 ];
 
-const mockWallets = [
-  { id: '1', name: 'Test Wallet 1', secretKey: 'SAMPLE_KEY_1' },
-];
-
-const mockContracts = [
-  { id: '1', name: 'Test Contract', contractId: 'CONTRACT_ID_1' },
-];
-
 export const Header = () => {
-  const { data: networks } = useQuery({
-    queryKey: ['networks'],
-    queryFn: () => mockNetworks
+  const { setContractId } = useContext(AppContext);
+
+  const { data } = useQuery({
+    queryKey: ['contract'],
+    queryFn: () => axios.get<Contract[]>('/contract'),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
-  const { data: wallets } = useQuery({
-    queryKey: ['wallets'],
-    queryFn: () => mockWallets
-  });
-
-  const { data: contracts } = useQuery({
-    queryKey: ['contracts'],
-    queryFn: () => mockContracts
-  });
+  const contracts = data?.data ?? [];
 
   return (
     <Box bg="white" px={6} py={4} shadow="sm">
@@ -61,16 +52,13 @@ export const Header = () => {
               </option>
             ))}
           </Select>
-          <Select placeholder="Select wallet" w="200px">
-            {wallets?.map((wallet) => (
-              <option key={wallet.id} value={wallet.id}>
-                {wallet.name}
-              </option>
-            ))}
-          </Select>
-          <Select placeholder="Select contract" w="200px">
+          <Select
+            placeholder="Select contract"
+            w="200px"
+            onChange={(e) => setContractId?.(e.target.value)}
+          >
             {contracts?.map((contract) => (
-              <option key={contract.id} value={contract.id}>
+              <option key={contract.id} value={contract.contract_id}>
                 {contract.name}
               </option>
             ))}
