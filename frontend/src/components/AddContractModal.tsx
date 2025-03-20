@@ -13,7 +13,7 @@ import {
   useDisclosure
 } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import axios from '../utils/axios';
 

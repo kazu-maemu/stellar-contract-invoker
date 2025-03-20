@@ -9,7 +9,7 @@ import {
   VStack
 } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import useKeyPair from '../api/useKeypair';
 import { AppContext } from '../App';

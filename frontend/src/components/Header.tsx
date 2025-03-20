@@ -9,7 +9,7 @@ import {
   Text
 } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import useContract from '../api/useContract';
 import { AppContext } from '../App';

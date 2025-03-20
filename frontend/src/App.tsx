@@ -1,5 +1,5 @@
 import { Box, Container, Grid, GridItem } from '@chakra-ui/react';
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 import { FunctionEditor } from './components/FunctionEditor';
 import { Header } from './components/Header';
 import { KeyPairs } from './components/KeyPairs';

@@ -1,7 +1,7 @@
 import {
   Select
 } from '@chakra-ui/react';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import useKeyPair from '../api/useKeypair';
 
 interface Props {

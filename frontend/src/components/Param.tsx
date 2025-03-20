@@ -5,7 +5,7 @@ import {
   StackProps,
   VStack
 } from '@chakra-ui/react';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { v4 as uuid } from 'uuid';
 import { IParam, ParamType } from '../types';

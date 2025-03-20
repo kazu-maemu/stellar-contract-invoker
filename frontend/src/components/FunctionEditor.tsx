@@ -11,7 +11,7 @@ import {
   VStack
 } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { FaPlay, FaPlus, FaSave, FaTrash } from 'react-icons/fa';
 import { v4 as uuid } from 'uuid';
 import useFunc from '../api/useFunc';
