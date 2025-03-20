@@ -9,7 +9,7 @@ import {
   Text
 } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import useContract from '../api/useContract';
 import { AppContext } from '../App';
@@ -28,7 +28,7 @@ export const Header = () => {
   const { contract, setContract } = useContext(AppContext);
   const { contracts } = useContract();
 
-  const [isDeleting, setIsDeleting] = React.useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
     if (!contract) return;
