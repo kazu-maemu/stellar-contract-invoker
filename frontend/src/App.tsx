@@ -3,28 +3,42 @@ import React, { createContext, useState } from 'react';
 import { FunctionEditor } from './components/FunctionEditor';
 import { Header } from './components/Header';
 import { KeyPairs } from './components/KeyPairs';
-import { KeyPair } from './types';
+import { IContract, IKeyPair } from './types';
 
 interface IApp {
-  contractId?: string;
-  setContractId?: (contractId: string) => void;
-  account?: KeyPair;
-  setAccount?: (account: KeyPair) => void;
+  contract?: IContract;
+  setContract?: (contract: IContract | undefined) => void;
+  account?: IKeyPair;
+  setAccount?: (account: IKeyPair) => void;
 }
 
 export const AppContext = createContext<IApp>({});
 
 function App() {
-  const [contractId, setContractId] = useState('');
-  const [account, setAccount] = useState<KeyPair>();
+  const [contract, setContract] = useState<IContract>();
+  const [account, setAccount] = useState<IKeyPair>();
 
   return (
     <AppContext.Provider
       value={{
-        contractId,
-        setContractId,
+        contract,
+        setContract: (contract) => {
+          setContract(contract);
+          if (contract) {
+            localStorage.setItem('contract', contract.contract_id);
+          } else {
+            localStorage.removeItem('contract');
+          }
+        },
         account,
-        setAccount,
+        setAccount: (account) => {
+          setAccount(account);
+          if (account) {
+            localStorage.setItem('account', account.pub_key);
+          } else {
+            localStorage.removeItem('account');
+          }
+        },
       }}
     >
       <Box minH="100vh" bg="gray.100">
