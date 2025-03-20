@@ -38,7 +38,7 @@ const AddContractModal: React.FC = () => {
 
   return (
     <>
-      <Button colorScheme='green' onClick={onOpen}>
+      <Button flex='none' colorScheme='green' onClick={onOpen}>
         <FaPlus />
       </Button>
 

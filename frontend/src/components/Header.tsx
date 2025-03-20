@@ -71,7 +71,7 @@ export const Header = () => {
           />
           <AddContractModal />
           {contract && <EditContractModal contract={contract} />}
-          <Button colorScheme="red" onClick={handleDelete} isLoading={isDeleting} disabled={!contract}>
+          <Button flex='none' colorScheme="red" onClick={handleDelete} isLoading={isDeleting} disabled={!contract}>
             <FaTrash />
           </Button>
         </HStack>

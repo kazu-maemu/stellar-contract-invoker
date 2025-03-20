@@ -62,7 +62,7 @@ const Param: FC<Props> = ({ type, param, setParam, onDelete, ...props }) => {
             setParam?.(newParam);
           }} />
         )}
-        <Button colorScheme='red' onClick={onDelete}>
+        <Button flex='none' colorScheme='red' onClick={onDelete}>
           <FaTrash />
         </Button>
       </HStack>

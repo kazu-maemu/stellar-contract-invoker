@@ -50,7 +50,7 @@ const EditContractModal: FC<Props> = ({ contract }) => {
 
   return (
     <>
-      <Button colorScheme='blue' onClick={onOpen}>
+      <Button flex='none' colorScheme='blue' onClick={onOpen}>
         <FaEdit />
       </Button>
 
