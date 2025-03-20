@@ -1,17 +1,22 @@
 import {
   Box,
+  Button,
   Flex,
   HStack,
   Image,
   Select,
   Spacer,
-  Text,
+  Text
 } from '@chakra-ui/react';
-import { useQuery } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { FaTrash } from 'react-icons/fa';
+import useContract from '../api/useContract';
 import { AppContext } from '../App';
-import { Contract } from '../types';
 import axios from '../utils/axios';
+import AddContractModal from './AddContractModal';
+import ContractSelect from './ContractSelect';
+import EditContractModal from './EditContractModal';
 
 const networks = [
   { id: '1', name: 'Testnet', url: 'https://horizon-testnet.stellar.org' },
@@ -19,16 +24,24 @@ const networks = [
 ];
 
 export const Header = () => {
-  const { setContractId } = useContext(AppContext);
+  const queryClient = useQueryClient();
+  const { contract, setContract } = useContext(AppContext);
+  const { contracts } = useContract();
 
-  const { data } = useQuery({
-    queryKey: ['contract'],
-    queryFn: () => axios.get<Contract[]>('/contract'),
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
+  const [isDeleting, setIsDeleting] = React.useState(false);
 
-  const contracts = data?.data ?? [];
+  const handleDelete = async () => {
+    if (!contract) return;
+    setIsDeleting(true);
+    try {
+      await axios.delete(`/contract/${contract.id}`);
+      queryClient.invalidateQueries({ queryKey: ['contract'] });
+      setContract?.(undefined);
+    } catch (error) {
+      console.error('There was an error deleting the contract:', error);
+    }
+    setIsDeleting(false);
+  };
 
   return (
     <Box bg="white" px={6} py={4} shadow="sm">
@@ -45,24 +58,22 @@ export const Header = () => {
         </HStack>
         <Spacer />
         <HStack spacing={4}>
-          <Select placeholder="Select network" w="200px">
+          <Select placeholder="Select network">
             {networks?.map((network) => (
               <option key={network.id} value={network.id}>
                 {network.name}
               </option>
             ))}
           </Select>
-          <Select
-            placeholder="Select contract"
-            w="200px"
-            onChange={(e) => setContractId?.(e.target.value)}
-          >
-            {contracts?.map((contract) => (
-              <option key={contract.id} value={contract.contract_id}>
-                {contract.name}
-              </option>
-            ))}
-          </Select>
+          <ContractSelect
+            contractId={contract?.contract_id}
+            setContractId={(contract_id) => setContract?.(contracts.find((c) => c.contract_id == contract_id))}
+          />
+          <AddContractModal />
+          {contract && <EditContractModal contract={contract} />}
+          <Button colorScheme="red" onClick={handleDelete} isLoading={isDeleting} disabled={!contract}>
+            <FaTrash />
+          </Button>
         </HStack>
       </Flex>
     </Box>
